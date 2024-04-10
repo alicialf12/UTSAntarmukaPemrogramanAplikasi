@@ -19,14 +19,14 @@ async function getMultiple(page = 1){
 
 //CODE UNTUK POST
 async function createTransaction(transactionData) {
-    const {nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran } = transactionData;
+    const { nomor_meja, nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran } = transactionData;
 
     const result = await db.query(
         `INSERT INTO transaksi_restaurant 
-        (nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran) 
+        (nomor_meja, nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran) 
         VALUES 
         (?, ?, ?, ?, ?, ?, ?, ?)`,
-        [nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran]
+        [nomor_meja, nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran]
     );
 
     let message = 'Error saat membuat transaksi';
@@ -38,15 +38,16 @@ async function createTransaction(transactionData) {
     return { message };
 }
 
+
 //CODE UNTUK PUT
 async function updateTransaction(id, transactionData) {
-    const {nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran } = transactionData;
+    const { nomor_meja, nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran } = transactionData;
 
     const result = await db.query(
         `UPDATE transaksi_restaurant 
-        SET nama_menu=?, harga_menu=?, kategori_menu=?, jumlah_pesanan=?, harga_total=?, status_pesanan=?, metode_pembayaran=? 
+        SET nomor_meja=?, nama_menu=?, harga_menu=?, kategori_menu=?, jumlah_pesanan=?, harga_total=?, status_pesanan=?, metode_pembayaran=? 
         WHERE transaksi_id=?`,
-        [nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran, id]
+        [nomor_meja, nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran, id]
     );
 
     let message = 'Error saat memperbarui transaksi';
@@ -57,6 +58,7 @@ async function updateTransaction(id, transactionData) {
 
     return { message };
 }
+
 
 //CODE UNTUK DELETE
 async function removeTransaction(id) {
@@ -74,10 +76,8 @@ async function removeTransaction(id) {
     return { message };
 }
 
-
 module.exports = {
-  getMultiple, //GET
-  createTransaction, //POST
-  updateTransaction, //PUT
-  removeTransaction, //DELETE
+    createTransaction,
+    updateTransaction,
+    removeTransaction
 };

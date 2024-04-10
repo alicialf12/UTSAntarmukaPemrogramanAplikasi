@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 4000;
+const port = 3000;
 const transaksiRestaurantRouter = require("./routes/transaksiRestaurant");
 
 app.use(express.json());
@@ -24,5 +24,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Example app listening at http://localhost:3000`);
 });
