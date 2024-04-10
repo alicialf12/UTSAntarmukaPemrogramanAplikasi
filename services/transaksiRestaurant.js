@@ -38,7 +38,28 @@ async function createTransaction(transactionData) {
     return { message };
 }
 
+//CODE UNTUK PUT
+async function updateTransaction(id, transactionData) {
+    const {nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran } = transactionData;
+
+    const result = await db.query(
+        `UPDATE transaksi_restaurant 
+        SET nama_menu=?, harga_menu=?, kategori_menu=?, jumlah_pesanan=?, harga_total=?, status_pesanan=?, metode_pembayaran=? 
+        WHERE transaksi_id=?`,
+        [nama_menu, harga_menu, kategori_menu, jumlah_pesanan, harga_total, status_pesanan, metode_pembayaran, id]
+    );
+
+    let message = 'Error saat memperbarui transaksi';
+
+    if (result.affectedRows) {
+        message = 'Transaksi berhasil diperbarui';
+    }
+
+    return { message };
+}
+
 module.exports = {
   getMultiple, //GET
   createTransaction, //POST
-}
+  updateTransaction, //PUT
+};
