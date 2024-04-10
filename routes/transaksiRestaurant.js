@@ -13,4 +13,14 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+/* POST transaksi restaurant */
+router.post('/', async function (req, res, next) {
+    try {
+        res.json(await transactionService.createTransaction(req.body));
+    } catch (err) {
+        console.error('Error while creating transaction:', err.message);
+        next(err);
+    }
+});
+
 module.exports = router;
