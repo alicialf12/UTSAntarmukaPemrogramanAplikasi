@@ -33,4 +33,14 @@ router.put('/:id', async function (req, res, next) {
     }
 });
 
+/* DELETE transaction */
+router.delete('/:id', async function (req, res, next) {
+    try {
+        res.json(await transactionService.removeTransaction(req.params.id));
+    } catch (err) {
+        console.error('Error while deleting transaction:', err.message);
+        next(err);
+    }
+});
+
 module.exports = router;

@@ -58,8 +58,26 @@ async function updateTransaction(id, transactionData) {
     return { message };
 }
 
+//CODE UNTUK DELETE
+async function removeTransaction(id) {
+    const result = await db.query(
+        `DELETE FROM transaksi_restaurant WHERE transaksi_id=?`,
+        [id]
+    );
+
+    let message = 'Error saat menghapus transaksi';
+
+    if (result.affectedRows) {
+        message = 'Transaksi berhasil dihapus';
+    }
+
+    return { message };
+}
+
+
 module.exports = {
   getMultiple, //GET
   createTransaction, //POST
   updateTransaction, //PUT
+  removeTransaction, //DELETE
 };
